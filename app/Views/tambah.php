@@ -19,30 +19,33 @@
             </div>
         <?php endif; ?>
 
-        <form action="/simpan" method="post">
+        <form id="userForm" action="/simpan" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" required>
+                <input type="text" class="form-control" id="username" name="username">
+                <div class="text-danger small" id="usernameError"></div>
             </div>
 
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" name="password" required>
+                <input type="password" class="form-control" id="password" name="password">
+                <div class="text-danger small" id="passwordError"></div>
             </div>
-
 
             <div class="mb-3">
                 <label for="nim" class="form-label">NIM</label>
-                <input type="text" class="form-control" id="nim" name="nim" required>
+                <input type="text" class="form-control" id="nim" name="nim">
+                <div class="text-danger small" id="nimError"></div>
             </div>
 
             <div class="mb-3">
                 <label for="full_name" class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="full_name" name="full_name" required>
+                <input type="text" class="form-control" id="full_name" name="full_name">
+                <div class="text-danger small" id="fullNameError"></div>
             </div>
 
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" class="btn btn-success">Simpan</button>
                 <a href="<?= base_url('user') ?>" class="btn btn-secondary">Kembali</a>
             </div>
         </form>
@@ -51,3 +54,44 @@
     </div>
 </div>
 </div>
+
+<script>
+    document.getElementById("userForm").addEventListener("submit", function(e) {
+        let isValid = true;
+
+        // Ambil field
+        let username = document.getElementById("username");
+        let password = document.getElementById("password");
+        let nim = document.getElementById("nim");
+        let fullName = document.getElementById("full_name");
+
+        // Reset error
+        document.getElementById("usernameError").textContent = "";
+        document.getElementById("passwordError").textContent = "";
+        document.getElementById("nimError").textContent = "";
+        document.getElementById("fullNameError").textContent = "";
+
+        // Validasi
+        if (username.value.trim() === "") {
+            document.getElementById("usernameError").textContent = "Username wajib diisi.";
+            isValid = false;
+        }
+        if (password.value.trim() === "") {
+            document.getElementById("passwordError").textContent = "Password wajib diisi.";
+            isValid = false;
+        }
+        if (nim.value.trim() === "") {
+            document.getElementById("nimError").textContent = "NIM wajib diisi.";
+            isValid = false;
+        }
+        if (fullName.value.trim() === "") {
+            document.getElementById("fullNameError").textContent = "Nama lengkap wajib diisi.";
+            isValid = false;
+        }
+
+        // Cegah submit jika tidak valid
+        if (!isValid) {
+            e.preventDefault();
+        }
+    });
+</script>

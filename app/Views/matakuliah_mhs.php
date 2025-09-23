@@ -1,31 +1,59 @@
 <?= $this->extend('template') ?>
-
 <?= $this->section('content') ?>
-<h3>Daftar Mata Kuliah</h3>
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>No.</th>
-            <th>Nama Mata Kuliah</th>
-            <th class="text-center">SKS</th>
-            <th class="text-center">Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach($courses as $course): ?>
-        <tr>
-            <td><?= $course['course_id'] ?></td>
-            <td><?= $course['course_name'] ?></td>
-            <td class="text-center"><?= $course['credits'] ?></td>
-            <td class="text-center">
-                <?php if(in_array($course['course_id'], $takenCourses)): ?>
-                    <span class="btn btn-success btn-sm disabled">Sudah diambil</span>
-                <?php else: ?>
-                    <a href="/matakuliah-mhs/take/<?= $course['course_id'] ?>" class="btn btn-primary btn-sm">Ambil</a>
-                <?php endif; ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+
+<h3 class="mb-3">Pilih Mata Kuliah</h3>
+
+<form action="/matakuliah-mhs/store" method="post" id="formMatkul">
+    <?= csrf_field() ?>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">Pilih</th>
+                <th>Nama Mata Kuliah</th>
+                <th class="text-center">SKS</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($courses as $course): ?>
+                <tr>
+                    <td class="text-center">
+                        <input type="checkbox" 
+                                name="courses[]" 
+                                value="<?= esc($course['course_id']) ?>" 
+                                data-credits="<?= esc($course['credits']) ?>"
+                                <?= in_array($course['course_id'], $takenCourses) ? 'checked' : '' ?>>
+                    </td>
+                    <td><?= esc($course['course_name']) ?></td>
+                    <td class="text-center"><?= esc($course['credits']) ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <div class="mt-3">
+        <strong>Total SKS: </strong> <span id="totalSKS">0</span>
+    </div>
+
+    <div class="mt-3 text-center">
+        <button type="submit" class="btn btn-success">Simpan</button>
+        <a href="/dashboard" class="btn btn-secondary">Batal</a>
+    </div>
+</form>
+
+<script>
+function updateTotalSKS() {
+    let total = 0;
+    document.querySelectorAll('input[name="courses[]"]:checked').forEach(cb => {
+        total += parseInt(cb.dataset.credits) || 0;
+    });
+    document.getElementById('totalSKS').textContent = total;
+}
+
+document.querySelectorAll('input[name="courses[]"]').forEach(cb => {
+    cb.addEventListener('change', updateTotalSKS);
+});
+
+updateTotalSKS();
+</script>
+
 <?= $this->endSection() ?>

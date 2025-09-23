@@ -20,7 +20,7 @@ $routes->get('/logout', 'UserController::logout');
 $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/matakuliah-mhs', 'MatakuliahMhs::index');
     $routes->get('/matakuliah-mhs/take/(:num)', 'MatakuliahMhs::take/$1');
-
+    $routes->post('/matakuliah-mhs/store', 'MatakuliahMhs::store');
     // Home / dashboard
     $routes->get('/home','UserController::home');
 
@@ -47,5 +47,8 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
         $routes->get('/edit/(:num)', 'UserController::edit/$1');
         $routes->post('/update/(:num)', 'UserController::update/$1'); 
         $routes->get('/delete/(:num)', 'UserController::delete/$1');
+
+
+
     });
 });
