@@ -19,9 +19,9 @@
                     <td class="text-center">
                         <input type="checkbox" 
                                 name="courses[]" 
-                                value="<?= esc($course['course_id']) ?>" 
-                                data-credits="<?= esc($course['credits']) ?>"
-                                <?= in_array($course['course_id'], $takenCourses) ? 'checked' : '' ?>>
+                                value="<?= $course['course_id'] ?>" 
+                                data-credits="<?= $course['credits'] ?>"
+                                <?= in_array($course['course_id'], $takenCourses) ? 'checked disabled' : '' ?>>
                     </td>
                     <td><?= esc($course['course_name']) ?></td>
                     <td class="text-center"><?= esc($course['credits']) ?></td>
@@ -36,7 +36,6 @@
 
     <div class="mt-3 text-center">
         <button type="submit" class="btn btn-success">Simpan</button>
-        <a href="/dashboard" class="btn btn-secondary">Batal</a>
     </div>
 </form>
 

@@ -71,21 +71,31 @@
         document.getElementById("nimError").textContent = "";
         document.getElementById("fullNameError").textContent = "";
 
+        // Reset class
+        username.classList.remove("is-invalid");
+        password.classList.remove("is-invalid");
+        nim.classList.remove("is-invalid");
+        fullName.classList.remove("is-invalid");
+
         // Validasi
         if (username.value.trim() === "") {
             document.getElementById("usernameError").textContent = "Username wajib diisi.";
+            username.classList.add("is-invalid");
             isValid = false;
         }
         if (password.value.trim() === "") {
             document.getElementById("passwordError").textContent = "Password wajib diisi.";
+            password.classList.add("is-invalid");
             isValid = false;
         }
         if (nim.value.trim() === "") {
             document.getElementById("nimError").textContent = "NIM wajib diisi.";
+            nim.classList.add("is-invalid");
             isValid = false;
         }
         if (fullName.value.trim() === "") {
             document.getElementById("fullNameError").textContent = "Nama lengkap wajib diisi.";
+            fullName.classList.add("is-invalid");
             isValid = false;
         }
 

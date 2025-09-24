@@ -55,16 +55,24 @@
         document.getElementById("courseNameError").textContent = "";
         document.getElementById("creditsError").textContent = "";
 
+        // Reset class
+        courseName.classList.remove("is-invalid");
+        credits.classList.remove("is-invalid");
+
         // Validasi
         if (courseName.value.trim() === "") {
             document.getElementById("courseNameError").textContent = "Nama mata kuliah wajib diisi.";
+            courseName.classList.add("is-invalid");
             isValid = false;
         }
+
         if (credits.value.trim() === "") {
             document.getElementById("creditsError").textContent = "Jumlah SKS wajib diisi.";
+            credits.classList.add("is-invalid");
             isValid = false;
         } else if (parseInt(credits.value) < 1) {
             document.getElementById("creditsError").textContent = "Jumlah SKS minimal 1.";
+            credits.classList.add("is-invalid");
             isValid = false;
         }
 

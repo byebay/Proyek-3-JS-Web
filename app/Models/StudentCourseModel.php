@@ -7,9 +7,9 @@ use CodeIgniter\Model;
 class StudentCourseModel extends Model
 {
     protected $table = 'takes';
-    protected $primaryKey = ['student_id', 'course_id'];
-    protected $allowedFields = ['student_id','course_id','enroll_date'];
+    protected $primaryKey = false;
     public $useAutoIncrement = false;
+    protected $allowedFields = ['student_id','course_id','enroll_date'];
     
     public function findByStudentAndCourse($studentId, $courseId)
     {

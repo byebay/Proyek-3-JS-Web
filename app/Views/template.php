@@ -1,8 +1,3 @@
-<script src="<?= base_url('js/script.js'); ?>"></script>
-
-<?php
-$page = isset($_GET['page']) ? $_GET['page'] : 'home';
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,19 +13,28 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
     </div>
 
     <?php
+    $uri = service('uri'); 
     $role = session()->get('role');
     ?>
     <nav class="navbar navbar-expand-lg navbar-light bg-light my-3 rounded">
         <div class="container-fluid">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link <?= $uri->getSegment(1) == 'home' ? 'active fw-bold text-primary' : '' ?>" href="/home">Home</a>
+                    </li>
 
                     <?php if($role == 'admin'): ?>
-                        <li class="nav-item"><a class="nav-link" href="/matakuliah">Mata Kuliah</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/user">Data Mahasiswa</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $uri->getSegment(1) == 'matakuliah' ? 'active fw-bold text-primary' : '' ?>" href="/matakuliah">Mata Kuliah</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $uri->getSegment(1) == 'user' ? 'active fw-bold text-primary' : '' ?>" href="/user">Data Mahasiswa</a>
+                        </li>
                     <?php elseif($role == 'mahasiswa'): ?>
-                        <li class="nav-item"><a class="nav-link" href="/matakuliah-mhs">Mata Kuliah</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $uri->getSegment(1) == 'matakuliah-mhs' ? 'active fw-bold text-primary' : '' ?>" href="/matakuliah-mhs">Mata Kuliah</a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -53,5 +57,6 @@ $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 </div>
 
 <script src="<?= base_url('bootstrap/js/bootstrap.bundle.min.js') ?>"></script>
+<script src="<?= base_url('js/script.js'); ?>"></script>
 </body>
 </html>
